@@ -23,6 +23,10 @@ const Navigation = () => {
     navigate('/books');
   };
 
+  const handleProjectsClick = () => {
+    navigate('/projects');
+  };
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled ? 'bg-slate-900/80 backdrop-blur-md' : 'bg-transparent'
@@ -39,7 +43,7 @@ const Navigation = () => {
               { name: 'Education', action: () => scrollToSection('education') },
               { name: 'Experience', action: () => scrollToSection('experience') },
               { name: 'Skills', action: () => scrollToSection('skills') },
-              { name: 'Projects', action: () => scrollToSection('projects') },
+              { name: 'Projects', action: handleProjectsClick },
               { name: 'Books', action: handleBooksClick },
               { name: 'Contact', action: () => scrollToSection('contact') }
             ].map((item) => (
