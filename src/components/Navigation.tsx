@@ -70,7 +70,6 @@ const Navigation = () => {
           </button>
           <div className="hidden md:flex items-center space-x-4">
             {[
-              { name: 'About', action: () => scrollToSection('about') },
               { name: 'Education', action: () => scrollToSection('education') },
               { name: 'Experience', action: () => scrollToSection('experience') },
               { name: 'Skills', action: () => scrollToSection('skills') },

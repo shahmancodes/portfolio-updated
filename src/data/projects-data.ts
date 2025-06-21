@@ -19,7 +19,7 @@ export const projectsData = [
         technologies: ["JavaScript", "Chrome Extensions API", "React", "FastAPI"],
         period: "Jun 2025 – Present",
         link: "https://chromewebstore.google.com/detail/jobify/fbnenabmljienoifjpmjfojidillcdii",
-        image: "/src/assets/Amploy.png",
+        image: "/src/assets/Jobify.png",
         category: "Productivity",
         status: "Active"
     },
