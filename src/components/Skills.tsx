@@ -1,65 +1,111 @@
+import { userInfo } from "@/data/user-data";
+import { Code, Database, Cloud, Briefcase } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Skills = () => {
-  const skills = [
-    { name: 'React', level: 95 },
-    { name: 'TypeScript', level: 90 },
-    { name: 'Node.js', level: 85 },
-    { name: 'Python', level: 80 },
-    { name: 'PostgreSQL', level: 85 },
-    { name: 'AWS', level: 75 },
-  ];
+  const { skills } = userInfo;
 
-  const tools = [
-    'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 
-    'MongoDB', 'AWS', 'Docker', 'GraphQL', 'Tailwind CSS', 'Figma'
-  ];
+  // Map categories to icons and colors
+  const categoryConfig = {
+    programming: {
+      icon: Code,
+      title: "Programming Languages",
+      color: "from-cyan-500 to-blue-500",
+      bgColor: "bg-cyan-500/10",
+      borderColor: "border-cyan-500/30"
+    },
+    data_analysis_visualization: {
+      icon: Database,
+      title: "Data Analysis & Visualization",
+      color: "from-blue-500 to-teal-500",
+      bgColor: "bg-blue-500/10",
+      borderColor: "border-blue-500/30"
+    },
+    tools_services: {
+      icon: Cloud,
+      title: "Tools & Cloud Services",
+      color: "from-teal-500 to-cyan-500",
+      bgColor: "bg-teal-500/10",
+      borderColor: "border-teal-500/30"
+    },
+    general: {
+      icon: Briefcase,
+      title: "General Tools",
+      color: "from-slate-500 to-gray-500",
+      bgColor: "bg-slate-500/10",
+      borderColor: "border-slate-500/30"
+    }
+  };
 
   return (
     <section id="skills" className="py-20 relative">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-12 text-center">
-          Skills & Tools
-        </h2>
-        
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Skill bars */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-semibold text-white mb-6">Proficiency</h3>
-            {skills.map((skill, index) => (
-              <div key={skill.name} className="space-y-2">
-                <div className="flex justify-between text-gray-300">
-                  <span>{skill.name}</span>
-                  <span>{skill.level}%</span>
-                </div>
-                <div className="w-full bg-gray-700 rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000 ease-out"
-                    style={{ 
-                      width: `${skill.level}%`,
-                      animationDelay: `${index * 200}ms`
-                    }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Tools grid */}
-          <div>
-            <h3 className="text-2xl font-semibold text-white mb-6">Technologies</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {tools.map((tool, index) => (
-                <div 
-                  key={tool}
-                  className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-lg p-4 text-center text-gray-300 hover:border-purple-500 hover:text-white transition-all duration-300 hover:scale-105"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {tool}
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            Skills & Technologies
+          </h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            A comprehensive overview of my technical expertise and tools I work with
+          </p>
         </div>
+        
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8">
+          {Object.entries(skills).map(([category, skillList]) => {
+            const config = categoryConfig[category as keyof typeof categoryConfig];
+            const IconComponent = config?.icon || Code;
+            
+            return (
+              <Card 
+                key={category} 
+                className={`bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:bg-slate-800/70 transition-all duration-300 hover:scale-[1.02] ${config?.borderColor || 'border-slate-700'}`}
+              >
+                <CardHeader className="pb-4">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <div className={`p-3 rounded-lg ${config?.bgColor || 'bg-slate-500/10'}`}>
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
+                    <CardTitle className="text-white text-xl">
+                      {config?.title || category.replace('_', ' ')}
+                    </CardTitle>
+                  </div>
+                  <div className={`h-1 rounded-full bg-gradient-to-r ${config?.color || 'from-slate-500 to-gray-500'}`}></div>
+                </CardHeader>
+                
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {skillList.map((skill, index) => (
+                      <div 
+                        key={skill}
+                        className="group relative bg-slate-700/30 backdrop-blur-sm border border-slate-600/50 rounded-lg px-4 py-3 text-gray-300 hover:border-cyan-500/50 hover:text-white transition-all duration-300 hover:scale-105 hover:bg-slate-700/50"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">{skill}</span>
+                          <div className="flex space-x-1">
+                            {Array.from({ length: 3 }, (_, i) => (
+                              <div 
+                                key={i}
+                                className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                                  i < 2 ? 'bg-cyan-400' : 'bg-slate-600 group-hover:bg-cyan-400'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        
+                        {/* Hover effect gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                                    </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+        
+        
       </div>
     </section>
   );

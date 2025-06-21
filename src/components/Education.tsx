@@ -1,29 +1,23 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap } from 'lucide-react';
+import { userInfo } from "@/data/user-data";
+
+// Import local university logos
+import HKUSTLogo from "@/assets/HKUST.png";
+import UBCLogo from "@/assets/UBC.png";
 
 const Education = () => {
-  const educationData = [
-    {
-      degree: "Bachelor of Science in Computer Science",
-      institution: "University of Technology",
-      period: "2021 - 2025",
-      gpa: "3.8/4.0",
-      relevantCourses: [
-        "Data Structures & Algorithms",
-        "Software Engineering",
-        "Database Systems",
-        "Computer Networks",
-        "Operating Systems",
-        "Web Development"
-      ],
-      achievements: [
-        "Dean's List for 3 consecutive semesters",
-        "President of Computer Science Club",
-        "Hackathon Winner - TechFest 2024"
-      ]
+  const getLogoSrc = (logoPath: string, universityName: string) => {
+    // Handle local asset paths based on university name
+    if (universityName.includes('Hong Kong University of Science and Technology') || universityName.includes('HKUST')) {
+      return HKUSTLogo;
     }
-  ];
+    if (universityName.includes('University of British Columbia') || universityName.includes('UBC')) {
+      return UBCLogo;
+    }
+    // Return external URLs as-is for fallback
+    return logoPath;
+  };
 
   return (
     <section id="education" className="py-20 relative">
@@ -31,7 +25,7 @@ const Education = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-4">
-              <GraduationCap className="w-8 h-8 text-purple-400 mr-3" />
+              <GraduationCap className="w-8 h-8 text-cyan-400 mr-3" />
               <h2 className="text-4xl md:text-6xl font-bold text-white">
                 Education
               </h2>
@@ -42,45 +36,32 @@ const Education = () => {
           </div>
 
           <div className="space-y-8">
-            {educationData.map((edu, index) => (
+            {userInfo.education.map((edu, index) => (
               <Card key={index} className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300">
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <CardTitle className="text-white text-xl mb-2">{edu.degree}</CardTitle>
-                      <CardDescription className="text-purple-300 text-lg">
-                        {edu.institution}
-                      </CardDescription>
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={getLogoSrc(edu.logo, edu.university)} 
+                          alt={`${edu.university} logo`}
+                          className="w-16 h-16 object-contain bg-white rounded-lg p-2"
+                        />
+                      </div>
+                      <div>
+                        <CardTitle className="text-white text-xl mb-2">
+                          {edu.degree} {edu.major && `in ${edu.major}`}
+                        </CardTitle>
+                        <CardDescription className="text-cyan-300 text-lg">
+                          {edu.university}
+                        </CardDescription>
+                      </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-gray-300 font-semibold">{edu.period}</p>
-                      <p className="text-purple-400 font-semibold">GPA: {edu.gpa}</p>
+                      <p className="text-gray-300 font-semibold">{edu.graduation_date}</p>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <h4 className="text-white font-semibold mb-3">Relevant Coursework</h4>
-                    <div className="grid md:grid-cols-2 gap-2">
-                      {edu.relevantCourses.map((course, courseIndex) => (
-                        <div key={courseIndex} className="bg-slate-700/50 px-3 py-2 rounded-md">
-                          <span className="text-gray-300 text-sm">{course}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold mb-3">Achievements</h4>
-                    <ul className="space-y-2">
-                      {edu.achievements.map((achievement, achievementIndex) => (
-                        <li key={achievementIndex} className="text-gray-300 flex items-start">
-                          <span className="text-purple-400 mr-2">•</span>
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
               </Card>
             ))}
           </div>

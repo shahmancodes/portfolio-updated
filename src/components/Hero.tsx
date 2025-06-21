@@ -1,5 +1,6 @@
-
 import { useEffect, useState } from 'react';
+import { userInfo } from "@/data/user-data";
+import CVFile from "@/assets/Shahman_CV.pdf";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,26 +16,26 @@ const Hero = () => {
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}>
           <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 leading-tight">
-            Creative
-            <span className="block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Developer
-            </span>
+            {userInfo.name}
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            I craft beautiful digital experiences with modern technologies and creative design
+            {userInfo.summary_1}
+          </p>
+          <p className="text-xl md:text-1xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            {userInfo.summary_2}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-semibold hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
+              onClick={() => window.open(userInfo.contact.linkedin, '_blank')}
+              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-semibold hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
             >
-              View My Work
+              LinkedIn
             </button>
             <button 
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 border-2 border-purple-500 text-purple-400 rounded-full font-semibold hover:bg-purple-500 hover:text-white transition-all duration-300"
+              className="px-8 py-4 border-2 border-cyan-500 text-cyan-400 rounded-full font-semibold hover:bg-cyan-500 hover:text-white transition-all duration-300"
+              onClick={() => window.open(CVFile, '_blank')}
             >
-              Get In Touch
+              Boring Ass CV
             </button>
           </div>
         </div>
@@ -42,8 +43,8 @@ const Hero = () => {
       
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
       </div>
     </section>
   );

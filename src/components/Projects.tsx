@@ -1,31 +1,31 @@
+import { projectsData } from "@/data/projects-data";
+import { useNavigate } from "react-router-dom";
+
+// Import local images
+import KarkaramImg from "@/assets/Karkaram.jpg";
+import KiranImg from "@/assets/Kiran.png";
 
 const Projects = () => {
-  const projects = [
-    {
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.',
-      tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500',
-      github: '#',
-      live: '#'
-    },
-    {
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-      tech: ['React', 'TypeScript', 'Firebase', 'Material-UI'],
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500',
-      github: '#',
-      live: '#'
-    },
-    {
-      title: 'Weather Dashboard',
-      description: 'A beautiful weather dashboard with location-based forecasts, interactive maps, and detailed weather analytics.',
-      tech: ['Vue.js', 'Chart.js', 'OpenWeather API', 'Tailwind'],
-      image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=500',
-      github: '#',
-      live: '#'
-    }
-  ];
+  const navigate = useNavigate();
+  
+  // Show only first 3 projects on homepage
+  const featuredProjects = projectsData.slice(0, 3);
+
+  const getImageSrc = (imagePath: string) => {
+    // Handle local asset paths
+    if (imagePath.includes('Karkaram.jpg')) return KarkaramImg;
+    if (imagePath.includes('Kiran.png')) return KiranImg;
+    // Return external URLs as-is
+    return imagePath;
+  };
+
+  const handleShowAllProjects = () => {
+    navigate('/projects');
+    // Scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
 
   return (
     <section id="projects" className="py-20 relative">
@@ -35,53 +35,80 @@ const Projects = () => {
         </h2>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project) => (
             <div 
               key={project.title}
-              className="group bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 hover:scale-105"
+              className="group bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl overflow-hidden hover:border-cyan-500 transition-all duration-300 hover:scale-105"
             >
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden h-48 bg-slate-700/30">
                 <img 
-                  src={project.image} 
+                  src={getImageSrc(project.image)}
                   alt={project.title}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-4 right-4">
+                  <span className="px-3 py-1 bg-cyan-500/80 text-white text-sm rounded-full">
+                    {project.category}
+                  </span>
+                </div>
               </div>
               
               <div className="p-6 space-y-4">
-                <h3 className="text-xl font-semibold text-white group-hover:text-purple-300 transition-colors">
-                  {project.title}
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-white group-hover:text-cyan-300 transition-colors">
+                    {project.title}
+                  </h3>
+                  <span className="text-xs text-gray-400 bg-slate-700/50 px-2 py-1 rounded">
+                    {project.status}
+                  </span>
+                </div>
+                
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {project.description}
                 </p>
                 
                 <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech) => (
-                    <span key={tech} className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded text-xs">
+                  {project.technologies.slice(0, 4).map((tech) => (
+                    <span key={tech} className="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded text-xs">
                       {tech}
                     </span>
                   ))}
+                  {project.technologies.length > 4 && (
+                    <span className="px-2 py-1 bg-slate-600/50 text-gray-400 rounded text-xs">
+                      +{project.technologies.length - 4} more
+                    </span>
+                  )}
+                </div>
+                
+                <div className="flex items-center justify-between text-sm text-gray-400">
+                  <span>{project.role}</span>
+                  <span>{project.period}</span>
                 </div>
                 
                 <div className="flex gap-4 pt-4">
                   <a 
-                    href={project.github}
-                    className="flex-1 text-center py-2 border border-purple-500 text-purple-400 rounded-lg hover:bg-purple-500 hover:text-white transition-all duration-300"
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg hover:scale-105 transition-transform duration-300"
                   >
-                    GitHub
-                  </a>
-                  <a 
-                    href={project.live}
-                    className="flex-1 text-center py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:scale-105 transition-transform duration-300"
-                  >
-                    Live Demo
+                    View Project
                   </a>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Show All Projects Button */}
+        <div className="text-center mt-12">
+          <button
+            onClick={handleShowAllProjects}
+            className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg hover:scale-105 transition-all duration-300 font-semibold shadow-lg hover:shadow-cyan-500/25"
+          >
+            Show All Projects
+          </button>
         </div>
       </div>
     </section>
