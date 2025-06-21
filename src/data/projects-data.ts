@@ -12,15 +12,15 @@ export const projectsData = [
         status: "Active"
     },
     {
-        title: "Amploy",
-        description: "An automated job application extension for Chrome to help users apply to jobs automatically.",
-        longDescription: "Amploy is an automated job application extension that streamlines the job application process by automatically filling out application forms and managing application tracking.",
-        role: "Founder and Developer",
-        technologies: ["JavaScript", "Chrome Extensions API", "React", "FastAPI"],
-        period: "Jun 2025 – Present",
-        link: "https://chromewebstore.google.com/detail/jobify/fbnenabmljienoifjpmjfojidillcdii",
-        image: "/src/assets/Jobify.png",
-        category: "Productivity",
+        title: "USThing",
+        description: "A mobile application for HKUST students to access their course materials, timetables, and more.",
+        longDescription: "Leading a team of 50+ students to restructure HKUST's most-used mobile application, serving over 8,000+ users across Android and iOS  .",
+        role: "President",
+        technologies: ["React Native", "Node.js", "Express", "MongoDB"],
+        period: "May 2023 – Present",
+        link: "https://www.usthing.xyz/",
+        image: "/src/assets/USThing.png",
+        category: "Education",
         status: "Active"
     },
     {
@@ -33,6 +33,18 @@ export const projectsData = [
         link: "https://karkaram-frontend.vercel.app/",
         image: "/src/assets/Karkaram.jpg",
         category: "Social Impact",
+        status: "Active"
+    },
+    {
+        title: "Amploy",
+        description: "An automated job application extension for Chrome to help users apply to jobs automatically.",
+        longDescription: "Amploy is an automated job application extension that streamlines the job application process by automatically filling out application forms and managing application tracking.",
+        role: "Founder and Developer",
+        technologies: ["JavaScript", "Chrome Extensions API", "React", "FastAPI"],
+        period: "Jun 2025 – Present",
+        link: "https://chromewebstore.google.com/detail/jobify/fbnenabmljienoifjpmjfojidillcdii",
+        image: "/src/assets/Jobify.png",
+        category: "Productivity",
         status: "Active"
     },
     {
@@ -56,7 +68,7 @@ export const projectsData = [
         period: "Nov 2024 – Present",
         link: "https://www.unhinjed.com/",
         image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500",
-        category: "EdTech",
+        category: "Education",
         status: "Active"
     },
     {
