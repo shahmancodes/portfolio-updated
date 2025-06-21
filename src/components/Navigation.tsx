@@ -1,8 +1,10 @@
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +19,10 @@ const Navigation = () => {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleBooksClick = () => {
+    navigate('/books');
+  };
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled ? 'bg-slate-900/80 backdrop-blur-md' : 'bg-transparent'
@@ -27,13 +33,22 @@ const Navigation = () => {
             Portfolio
           </div>
           <div className="hidden md:flex space-x-8">
-            {['Home', 'About', 'Skills', 'Projects', 'Books', 'Contact'].map((item) => (
+            {[
+              { name: 'Home', action: () => scrollToSection('home') },
+              { name: 'About', action: () => scrollToSection('about') },
+              { name: 'Education', action: () => scrollToSection('education') },
+              { name: 'Experience', action: () => scrollToSection('experience') },
+              { name: 'Skills', action: () => scrollToSection('skills') },
+              { name: 'Projects', action: () => scrollToSection('projects') },
+              { name: 'Books', action: handleBooksClick },
+              { name: 'Contact', action: () => scrollToSection('contact') }
+            ].map((item) => (
               <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
+                key={item.name}
+                onClick={item.action}
                 className="text-gray-300 hover:text-white transition-colors duration-300 hover:scale-105 transform"
               >
-                {item}
+                {item.name}
               </button>
             ))}
           </div>
